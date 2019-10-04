@@ -6,3 +6,5 @@ log
 patch
 *.patch
 *.md
+doc
+log
