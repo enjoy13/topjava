@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="ru.javawebinar.topjava.util.TimeUtil" %>
 <html>
 <head>
     <title>Meals</title>
@@ -37,7 +37,7 @@
     </tr>
     <c:forEach items="${mealToFromServer}" var="mealTo">
         <tr style="${mealTo.excess ? 'color: red':'color: green'}">
-            <td>${mealTo.dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))}</td>
+            <td>${TimeUtil.formatWithoutT(mealTo.dateTime)}</td>
             <td>${mealTo.description}</td>
             <td>${mealTo.calories}</td>
         </tr>
