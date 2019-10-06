@@ -13,6 +13,7 @@
     <title>Meals</title>
     <style>
         table {
+            text-align:center;
             border-collapse: collapse;
             width: 55%;
         }
@@ -23,13 +24,22 @@
         tr:nth-child(even){background-color: #f2f2f2}
         th {
             background-color: white;
-            color: grey;
+            color: black;
         }
     </style>
 </head>
 <body>
-<h1 style="color: grey">Список еды:</h1>
+<h1 style="color: black " >Список еды:</h1>
 <table>
+    <form method="post" action="meals" enctype="application/x-www-form-urlencoded">
+        <tr>
+            <th><input type="datetime-local" size="13" name="dateTime" value="${meal.dateTime}"></th>
+            <th><input type="text" size="23" name="description" placeholder="Описание" value="${meal.description}"></th>
+            <th><input type="number" size="15" name="calories" placeholder="Калории" value="${meal.calories}"></th>
+            <th><button type="submit">Сохранить</button></th>
+        </tr>
+        <input type="text" size="3" name="id" value="${meal.id}" hidden >
+    </form>
     <tr>
         <th>Дата/Время</th>
         <th>Описание</th>
@@ -40,6 +50,8 @@
             <td>${TimeUtil.formatWithoutT(mealTo.dateTime)}</td>
             <td>${mealTo.description}</td>
             <td>${mealTo.calories}</td>
+            <td><a href="meals?id=${mealTo.id}&action=edit">Update</a></td>
+            <td><a href="meals?id=${mealTo.id}&action=delete">Delete</a></td>
         </tr>
     </c:forEach>
 </table>

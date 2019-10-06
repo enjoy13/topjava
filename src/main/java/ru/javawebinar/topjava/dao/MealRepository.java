@@ -1,10 +1,18 @@
 package ru.javawebinar.topjava.dao;
 
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.MealTo;
 
 import java.util.List;
 
 public interface MealRepository {
-    List<Meal> findAllMealTo();
+
+    List<Meal> findAllMeal();
+
+    void addMeal(Meal meal);
+
+    void deleteMeal(int mealId);
+
+    void updateMeal(Meal meal);
+
+    Meal getMealById(int mealId);
 }
