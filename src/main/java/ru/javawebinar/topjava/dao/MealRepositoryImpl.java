@@ -14,28 +14,28 @@ public class MealRepositoryImpl implements MealRepository {
 
 
     @Override
-    public List<Meal> findAllMeal() {
+    public List<Meal> findAll() {
         return new ArrayList<>(mealMap.values());
     }
 
     @Override
-    public void addMeal(Meal meal) {
+    public void addl(Meal meal) {
         meal.setId(lastId.incrementAndGet());
         mealMap.put(meal.getId(), meal);
     }
 
     @Override
-    public void deleteMeal(int mealId) {
+    public void delete(int mealId) {
         mealMap.remove(mealId);
     }
 
     @Override
-    public void updateMeal(Meal meal) {
+    public void update(Meal meal) {
         mealMap.replace(meal.getId(), meal);
     }
 
     @Override
-    public Meal getMealById(int mealId) {
+    public Meal getById(int mealId) {
         return mealMap.get(mealId);
     }
 }

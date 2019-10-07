@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface MealRepository {
 
-    List<Meal> findAllMeal();
+    List<Meal> findAll();
 
-    void addMeal(Meal meal);
+    void addl(Meal meal);
 
-    void deleteMeal(int mealId);
+    void delete(int mealId);
 
-    void updateMeal(Meal meal);
+    void update(Meal meal);
 
-    Meal getMealById(int mealId);
+    Meal getById(int mealId);
 }

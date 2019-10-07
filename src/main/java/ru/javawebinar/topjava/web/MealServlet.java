@@ -27,18 +27,18 @@ public class MealServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         this.mealRepository = new MealRepositoryImpl();
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 4, 8, 30), "Breakfast", 800));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 4, 14, 15), "Lunch ", 600));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 4, 18, 50), "Dinner", 1100));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 5, 6, 5), "Breakfast", 300));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 5, 12, 50), "Lunch", 200));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 5, 21, 30), "Dinner", 1300));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 6, 7, 30), "Breakfast", 900));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 6, 12, 30), "Lunch", 100));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 6, 21, 50), "Dinner", 700));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 7, 7, 30), "Breakfast", 900));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 7, 12, 30), "Lunch", 100));
-        mealRepository.addMeal(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 7, 21, 50), "Dinner", 1100));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 4, 8, 30), "Breakfast", 800));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 4, 14, 15), "Lunch ", 600));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 4, 18, 50), "Dinner", 1100));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 5, 6, 5), "Breakfast", 300));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 5, 12, 50), "Lunch", 200));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 5, 21, 30), "Dinner", 1300));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 6, 7, 30), "Breakfast", 900));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 6, 12, 30), "Lunch", 100));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 6, 21, 50), "Dinner", 700));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 7, 7, 30), "Breakfast", 900));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 7, 12, 30), "Lunch", 100));
+        mealRepository.addl(new Meal(LocalDateTime.of(2019, Month.OCTOBER, 7, 21, 50), "Dinner", 1100));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MealServlet extends HttpServlet {
         log.debug(request.getRequestURI() + " params : id=" + id + " action=" + action);
 
         if (action == null) {
-            List<Meal> mealList = mealRepository.findAllMeal();
+            List<Meal> mealList = mealRepository.findAll();
             List<MealTo> mealToList = MealsUtil.getNotFilteredWithExcees(mealList, 2000);
             request.setAttribute("mealToFromServer", mealToList);
             request.getRequestDispatcher(mealsJp).forward(request, response);
@@ -65,13 +65,13 @@ public class MealServlet extends HttpServlet {
                 return;
 
             case "edit":
-                meal = mealRepository.getMealById(Integer.parseInt(id));
+                meal = mealRepository.getById(Integer.parseInt(id));
                 request.setAttribute("meal", meal);
                 request.getRequestDispatcher(mealsJp).forward(request, response);
                 return;
 
             case "delete":
-                mealRepository.deleteMeal(Integer.parseInt(id));
+                mealRepository.delete(Integer.parseInt(id));
                 response.sendRedirect("meals");
                 return;
 
@@ -90,10 +90,10 @@ public class MealServlet extends HttpServlet {
         LocalDateTime localDateTime = LocalDateTime.parse(request.getParameter("dateTime"));
         Meal meal = new Meal(localDateTime, description, calories);
         if (id == null || id.isEmpty())
-            mealRepository.addMeal(meal);
+            mealRepository.addl(meal);
         else {
             meal.setId(Integer.parseInt(id));
-            mealRepository.updateMeal(meal);
+            mealRepository.update(meal);
         }
         response.sendRedirect("meals");
     }
