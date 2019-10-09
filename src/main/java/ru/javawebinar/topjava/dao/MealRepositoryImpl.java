@@ -12,7 +12,6 @@ public class MealRepositoryImpl implements MealRepository {
     private ConcurrentHashMap<Integer, Meal> mealMap = new ConcurrentHashMap<>();
     private static AtomicInteger lastId = new AtomicInteger();
 
-
     @Override
     public List<Meal> findAll() {
         return new ArrayList<>(mealMap.values());

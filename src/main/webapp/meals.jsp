@@ -12,26 +12,11 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <link rel="stylesheet" type="text/css"  href="css/style.css">
     <title>Meals</title>
-    <style>
-        table {
-            text-align:center;
-            border-collapse: collapse;
-            width: 55%;
-        }
-        th, td {
-            text-align: left;
-            padding: 11px;
-        }
-        tr:nth-child(even){background-color: #f2f2f2}
-        th {
-            background-color: white;
-            color: black;
-        }
-    </style>
 </head>
 <body>
-<h1 style="color: black " >Список еды:</h1>
+<h1>Список еды:</h1>
 <table>
     <form method="post" action="meals" enctype="application/x-www-form-urlencoded">
         <tr>
