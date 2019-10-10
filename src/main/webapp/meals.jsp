@@ -32,13 +32,13 @@
         <th>Описание</th>
         <th>Калории</th>
     </tr>
-    <c:forEach items="${mealToFromServer}" var="mealTo">
-        <tr style="${mealTo.excess ? 'color: red':'color: green'}">
-            <td>${TimeUtil.formatWithoutT(mealTo.dateTime)}</td>
-            <td>${mealTo.description}</td>
-            <td>${mealTo.calories}</td>
-            <td><a href="meals?id=${mealTo.id}&action=edit">Update</a></td>
-            <td><a href="meals?id=${mealTo.id}&action=delete">Delete</a></td>
+    <c:forEach items="${mealToFromServer}" var="meal">
+        <tr class="${meal.excess ? 'exceed' : 'normal'}">
+            <td>${TimeUtil.formatWithoutT(meal.dateTime)}</td>
+            <td>${meal.description}</td>
+            <td>${meal.calories}</td>
+            <td><a href="meals?id=${meal.id}&action=edit">Update</a></td>
+            <td><a href="meals?id=${meal.id}&action=delete">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
