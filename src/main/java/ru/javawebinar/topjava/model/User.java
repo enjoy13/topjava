@@ -87,5 +87,6 @@ public class User extends AbstractNamedEntity {
                 ", roles=" + roles +
                 ", caloriesPerDay=" + caloriesPerDay +
                 ')';
+
     }
 }

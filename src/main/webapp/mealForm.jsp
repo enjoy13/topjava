@@ -3,6 +3,8 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Meal</title>
     <style>
         dl {
@@ -24,6 +26,7 @@
     </style>
 </head>
 <body>
+
 <section>
     <h3><a href="index.html">Home</a></h3>
     <hr>
@@ -46,6 +49,7 @@
         <button type="submit">Save</button>
         <button onclick="window.history.back()" type="button">Cancel</button>
     </form>
+
 </section>
 </body>
 </html>

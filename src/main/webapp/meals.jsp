@@ -5,6 +5,8 @@
 <%--<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>--%>
 <html>
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Meal list</title>
     <style>
         .normal {
@@ -23,6 +25,31 @@
     <h2>Meals</h2>
     <a href="meals?action=create">Add Meal</a>
     <br><br>
+    <form method="post" action="meals">
+        <input type="hidden" name="action" value="filter"/>
+        <table width="50%" border="0">
+            <tr>
+                <td width="150">От даты</td>
+                <td width="150">До даты</td>
+                <td></td>
+                <td width="100">От времени</td>
+                <td width="100">До времени</td>
+            </tr>
+            <tr>
+                <td><input type="date" value="startDate" name="startDate"></td>
+                <td><input type="date" value="endDate" name="endDate"></td>
+                <td></td>
+                <td><input type="time" value="startTime" name="startTime"></td>
+                <td><input type="time" value="endTime" name="endTime"></td>
+            </tr>
+            <tr/>
+            <tr>
+                <td>
+                    <button type="submit">Отфильтровать</button>
+                </td>
+            </tr>
+        </table>
+    </form>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
@@ -34,7 +61,7 @@
         </tr>
         </thead>
         <c:forEach items="${meals}" var="meal">
-            <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.MealTo"/>
+            <jsp:useBean id="meal" type="ru.javawebinar.topjava.to.MealTo"/>
             <tr class="${meal.excess ? 'excess' : 'normal'}">
                 <td>
                         <%--${meal.dateTime.toLocalDate()} ${meal.dateTime.toLocalTime()}--%>
