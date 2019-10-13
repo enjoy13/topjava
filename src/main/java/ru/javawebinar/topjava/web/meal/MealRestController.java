@@ -55,6 +55,12 @@ public class MealRestController {
     }
 
     public List<MealTo> getByDateTime(LocalTime startTime, LocalTime endTime, LocalDate startDate, LocalDate endDate) {
-        return service.getByDateTime(startTime, endTime, startDate, endDate, authUserId(), authUserCaloriesPerDay());
+        log.info("getByDateTime method, {} {} {}  {}", startTime, endTime, startDate, endDate);
+        return service.getByDateTime(
+                startTime == null ? LocalTime.now() : startTime,
+                endTime == null ? LocalTime.now() : endTime,
+                startDate == null ? LocalDate.now() : startDate,
+                endDate == null ? LocalDate.now() : endDate,
+                authUserId(), authUserCaloriesPerDay());
     }
 }

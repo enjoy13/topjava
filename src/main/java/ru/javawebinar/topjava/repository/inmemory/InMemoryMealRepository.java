@@ -53,7 +53,8 @@ public class InMemoryMealRepository implements MealRepository {
 
     private List<Meal> getSortByDate(Integer userId, Predicate<Meal> filter) {
         log.info("getSortByDate method, userId {}", userId);
-        return repository.get(userId)
+        return repository.get(userId) == null ? Collections.emptyList() :
+                repository.get(userId)
                 .values()
                 .stream()
                 .filter(filter.and(meal -> meal.getUserId() == userId))

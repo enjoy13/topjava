@@ -23,15 +23,21 @@ import java.util.Objects;
 public class MealServlet extends HttpServlet {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
-    private ConfigurableApplicationContext appCtx;
+    private ConfigurableApplicationContext springContext;
     private MealRestController mealRestController;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
-        mealRestController = appCtx.getBean(MealRestController.class);
+        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        mealRestController = springContext.getBean(MealRestController.class);
         MealsUtil.MEALS.forEach(mealRestController::create);
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        springContext.close();
     }
 
     @Override
@@ -40,33 +46,15 @@ public class MealServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
-        if ("filter".equals(action)) {
-            String startTime = request.getParameter("startTime");
-            String endTime = request.getParameter("endTime");
-            String startDate = request.getParameter("startDate");
-            String endDate = request.getParameter("endDate");
+        String id = request.getParameter("id");
+        Meal meal = new Meal(null, id.isEmpty() ? null : Integer.parseInt(id),
+                LocalDateTime.parse(request.getParameter("dateTime")),
+                request.getParameter("description"),
+                Integer.parseInt(request.getParameter("calories")));
 
-            request.setAttribute(
-                    "meals",
-                    mealRestController.getByDateTime(
-                            LocalTime.parse(startTime),
-                            LocalTime.parse(endTime),
-                            LocalDate.parse(startDate),
-                            LocalDate.parse(endDate)
-            ));
-            request.getRequestDispatcher("/meals.jsp").forward(request, response);
-
-        } else {
-            String id = request.getParameter("id");
-            Meal meal = new Meal(null, id.isEmpty() ? null : Integer.parseInt(id),
-                    LocalDateTime.parse(request.getParameter("dateTime")),
-                    request.getParameter("description"),
-                    Integer.parseInt(request.getParameter("calories")));
-
-            log.info(meal.isNew() ? "Create {}" : "Update {}", meal);
-            mealRestController.create(meal);
-            response.sendRedirect("meals");
-        }
+        log.info(meal.isNew() ? "Create {}" : "Update {}", meal);
+        mealRestController.create(meal);
+        response.sendRedirect("meals");
     }
 
     @Override
@@ -79,6 +67,21 @@ public class MealServlet extends HttpServlet {
                 log.info("Delete {}", id);
                 mealRestController.delete(id);
                 response.sendRedirect("meals");
+                break;
+            case "filter":
+                String startTime = request.getParameter("startTime");
+                String endTime = request.getParameter("endTime");
+                String startDate = request.getParameter("startDate");
+                String endDate = request.getParameter("endDate");
+
+                request.setAttribute(
+                        "meals", mealRestController.getByDateTime(
+                                startTime == null || startTime.isEmpty() ? null : LocalTime.parse(startTime),
+                                endTime == null || endTime.isEmpty() ? null : LocalTime.parse(endTime),
+                                startDate == null || startDate.isEmpty() ? null : LocalDate.parse(startDate),
+                                endDate == null || endDate.isEmpty() ? null : LocalDate.parse(endDate)
+                        ));
+                request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
             case "create":
             case "update":

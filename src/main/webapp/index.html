@@ -2,13 +2,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Java Enterprise (Topjava)</title>
+<style>
+    body {
+        font: 14px 'Verdana';
+        margin: 0;
+        padding: 0;
+    }
+    ul {
+        display: block;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    ul:after {
+        display: block;
+        content: ' ';
+        clear: both;
+        float: none;
+    }
+    ul.menu > li {
+        float: left;
+        position: relative;
+    }
+    ul.menu > li > a {
+        display: block;
+        padding: 10px;
+        color: black;
+        background-color: white;
+        text-decoration: none;
+    }
+    ul.menu > li > a:hover {
+        background-color: white;
+    }
+    ul.submenu {
+        display: none;
+        position: absolute;
+        width: 120px;
+        top: 37px;
+        left: 0;
+        background-color: white;
+        /*border: 1px solid red;*/
+    }
+    ul.submenu > li {
+        display: block;
+    }
+    ul.submenu > li > a {
+        display: block;
+        padding: 10px;
+        color: black;
+        background-color: white;
+        text-decoration: none;
+    }
+    ul.submenu > li > a:hover {
+        text-decoration: underline;
+    }
+    ul.menu > li:hover > ul.submenu {
+        display: block;
+    }
+</style>
 </head>
 <body>
 <h3>Проект <a href="https://github.com/JavaWebinar/topjava" target="_blank">Java Enterprise (Topjava)</a></h3>
 <hr>
+
 <ul>
     <li><a href="users">Users</a></li>
     <li><a href="meals">Meals</a></li>
+</ul>
+
+<ul class="menu">
+    <li><a href=#>Select</a>
+        <ul class="submenu">
+            <li><a href="users?id=1">User # 1</a></li>
+            <li><a href="users?id=2">User # 2</a></li>
+        </ul>
+    </li>
 </ul>
 </body>
 </html>

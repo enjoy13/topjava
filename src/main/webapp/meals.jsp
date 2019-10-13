@@ -25,15 +25,15 @@
     <h2>Meals</h2>
     <a href="meals?action=create">Add Meal</a>
     <br><br>
-    <form method="post" action="meals">
+    <form method="get" action="meals">
         <input type="hidden" name="action" value="filter"/>
         <table width="50%" border="0">
             <tr>
-                <td width="150">От даты</td>
-                <td width="150">До даты</td>
+                <td width="150">Start Date</td>
+                <td width="150">End Date</td>
                 <td></td>
-                <td width="100">От времени</td>
-                <td width="100">До времени</td>
+                <td width="100">Start Time</td>
+                <td width="100">End Time</td>
             </tr>
             <tr>
                 <td><input type="date" value="startDate" name="startDate"></td>
