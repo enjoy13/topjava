@@ -21,8 +21,11 @@ public class MealService {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private MealRepository repository;
+    private final MealRepository repository;
+
+    public MealService(MealRepository repository) {
+        this.repository = repository;
+    }
 
     public Meal create(int userId, Meal meal) {
         return repository.save(userId, meal);

@@ -9,9 +9,7 @@ import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.to.MealTo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Collection;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
@@ -24,8 +22,11 @@ public class MealRestController {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private MealService service;
+    private final MealService service;
+
+    public MealRestController(MealService service) {
+        this.service = service;
+    }
 
     public List<MealTo> getAll() {
         log.info("getAll");
