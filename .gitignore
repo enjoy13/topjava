@@ -7,3 +7,4 @@ patch
 *.md
 /log/
 /doc/
+/TOPJAVA_ROOT _IS_UNDEFINED/
