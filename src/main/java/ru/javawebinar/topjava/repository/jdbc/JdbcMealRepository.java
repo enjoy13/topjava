@@ -16,11 +16,11 @@ import java.util.List;
 @Repository
 public class JdbcMealRepository implements MealRepository {
 
-    private static final String GETALL = "SELECT * FROM meals WHERE user_id=? ORDER BY datetime";
+    private static final String GETALL = "SELECT * FROM meals WHERE user_id=? ORDER BY date_time";
     private static final String GETBYID = "SELECT * FROM meals WHERE user_id=? AND id=?";
     private static final String DELETE = "DELETE FROM meals WHERE id=? AND user_id=?";
-    private static final String GETBYFILTER = "SELECT * FROM meals WHERE user_id=? AND dateTime>? AND dateTime<? ORDER BY datetime";
-    private static final String UPDATE = "UPDATE meals SET datetime=:dateTime, description=:description, calories=:calories, user_id=:user_id WHERE id=:id";
+    private static final String GETBYFILTER = "SELECT * FROM meals WHERE user_id=? AND date_time>? AND date_time<? ORDER BY date_time";
+    private static final String UPDATE = "UPDATE meals SET date_time=:dateTime, description=:description, calories=:calories  WHERE id=:id AND user_id=:user_id";
 
     private static final BeanPropertyRowMapper<Meal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Meal.class);
 
@@ -34,7 +34,6 @@ public class JdbcMealRepository implements MealRepository {
         this.insertUser = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("meals")
                 .usingGeneratedKeyColumns("id");
-
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
