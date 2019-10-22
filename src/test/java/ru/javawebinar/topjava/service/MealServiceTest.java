@@ -66,7 +66,7 @@ public class MealServiceTest {
 
     @Test
     public void getAll() {
-        assertThat(mealService.getAll(USER_ID)).usingFieldByFieldElementComparator().isEqualTo(Arrays.asList(MEAL_TEST_FIRST, MEAL_TEST_SECOND));
+        assertThat(mealService.getAll(USER_ID)).usingFieldByFieldElementComparator().isEqualTo(Arrays.asList(MEAL_TEST_SECOND,MEAL_TEST_FIRST));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class MealServiceTest {
     public void create() {
         Meal actualMeal = new Meal(DateTimeUtil.parseLocalDateTime("2019-10-19 09:00"), "testMeal", 1000);
         Meal newMeal = mealService.create(actualMeal, USER_ID);
-        assertThat(mealService.getAll(USER_ID)).usingFieldByFieldElementComparator().isEqualTo(Arrays.asList(MEAL_TEST_FIRST, newMeal, MEAL_TEST_SECOND));
+        assertThat(mealService.getAll(USER_ID)).usingFieldByFieldElementComparator().isEqualTo(Arrays.asList(MEAL_TEST_SECOND, newMeal, MEAL_TEST_FIRST));
     }
 
     @Test
