@@ -63,8 +63,7 @@ public class JdbcMealRepository implements MealRepository {
 
     @Override
     public Meal get(int id, int userId) {
-        List<Meal> list = jdbcTemplate.query(GETBYID, ROW_MAPPER, userId, id);
-        return DataAccessUtils.singleResult(list);
+        return DataAccessUtils.singleResult(jdbcTemplate.query(GETBYID, ROW_MAPPER, userId, id));
     }
 
     @Override
