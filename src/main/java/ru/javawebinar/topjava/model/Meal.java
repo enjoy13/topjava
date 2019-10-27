@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.FetchType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -20,8 +21,8 @@ import java.time.LocalTime;
 @NamedQueries(value = {
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m  WHERE m.id=:id AND m.user.id=:userId"),
         @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m JOIN FETCH m.user WHERE m.id=:id AND m.user.id=:userId"),
-        @NamedQuery(name = Meal.GET_ALL, query = "SELECT m FROM Meal m WHERE  m.user.id=:userId ORDER BY m.dateTime DESC "),
-        @NamedQuery(name = Meal.GET_BETWEEN, query = "SELECT m FROM Meal m WHERE  m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC "),
+        @NamedQuery(name = Meal.GET_ALL, query = "SELECT m FROM Meal m JOIN FETCH m.user WHERE  m.user.id=:userId ORDER BY m.dateTime DESC "),
+        @NamedQuery(name = Meal.GET_BETWEEN, query = "SELECT m FROM Meal m JOIN FETCH m.user WHERE  m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC "),
 //        @NamedQuery(name = Meal.UPDATE, query = "UPDATE Meal m SET m.dateTime=:dateTime, m.description=:description, m.calories=: calories WHERE m.user.id=:userId AND m.id=:id")
 })
 @Entity
@@ -39,7 +40,7 @@ public class Meal extends AbstractBaseEntity {
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
-    @NotNull
+    @NotBlank
     @Size(min = 3, max = 255)
     private String description;
 
