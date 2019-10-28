@@ -11,10 +11,7 @@ import java.util.Map;
 
 public class LogTimeRule implements TestRule {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private final String textLog = "Total test time: {} milliseconds, methodName: {}";
     private long startTime = 0L;
-    private long endTime = 0L;
-    private long totalTime = 0L;
     public static Map<String, Long> resultTestMap = new HashMap<>();
 
     private void beforeMethod() {
@@ -22,11 +19,11 @@ public class LogTimeRule implements TestRule {
     }
 
     private void afterMethod(Description description) {
-        endTime = System.currentTimeMillis();
-        totalTime = endTime - startTime;
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
         String methodName = description.getMethodName();
         resultTestMap.put(methodName, totalTime);
-        log.info(textLog, totalTime, methodName);
+        log.info("Total test time: {} milliseconds, methodName: {}", totalTime, methodName);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package ru.javawebinar.topjava.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -36,12 +39,12 @@ public class Meal extends AbstractBaseEntity {
 
     @Column(name = "description", nullable = false)
     @NotBlank
-    @Size(min = 3, max = 255)
+    @Size(min = 1, max = 255)
     private String description;
 
     @Column(name = "calories", nullable = false)
     @NotNull
-    @Range(min = 10, max = 10000)
+    @Range(min = 1, max = 10000)
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)

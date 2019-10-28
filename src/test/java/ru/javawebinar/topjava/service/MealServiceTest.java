@@ -33,6 +33,10 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
     private static final Logger log = LoggerFactory.getLogger(MealServiceTest.class);
+    private ExpectedException thrown;
+
+    @Rule
+    public TestRule chain = RuleChain.outerRule(new LogTimeRule()).around(thrown = ExpectedException.none());
 
     @AfterClass
     public static void finishReport() {
@@ -40,14 +44,6 @@ public class MealServiceTest {
                 (k, v) -> log.info("method name: {} - total time execute {} ms", k, v)
         );
     }
-
-    private LogTimeRule rfmstf;
-    private ExpectedException thrown;
-
-    @Rule
-    public TestRule chain = RuleChain.outerRule
-            (rfmstf = new LogTimeRule())
-            .around(thrown = ExpectedException.none());
 
     @Autowired
     private MealService service;
