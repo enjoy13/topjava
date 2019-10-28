@@ -15,7 +15,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.service.rule.RuleMealServiceTest;
+import ru.javawebinar.topjava.service.rule.LogTimeRule;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -36,14 +36,18 @@ public class MealServiceTest {
 
     @AfterClass
     public static void finishReport() {
-        RuleMealServiceTest.methodInfoMap.forEach((k, v) -> log.info("method name: {} - total time execute {} ms", k, v));
+        LogTimeRule.resultTestMap.forEach(
+                (k, v) -> log.info("method name: {} - total time execute {} ms", k, v)
+        );
     }
 
-    private RuleMealServiceTest rfmstf;
+    private LogTimeRule rfmstf;
     private ExpectedException thrown;
 
     @Rule
-    public TestRule chain = RuleChain.outerRule(rfmstf = new RuleMealServiceTest()).around(thrown = ExpectedException.none());
+    public TestRule chain = RuleChain.outerRule
+            (rfmstf = new LogTimeRule())
+            .around(thrown = ExpectedException.none());
 
     @Autowired
     private MealService service;
