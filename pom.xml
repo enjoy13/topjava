@@ -31,6 +31,9 @@
         <hibernate.version>5.4.7.Final</hibernate.version>
         <hibernate-validator.version>6.0.17.Final</hibernate-validator.version>
         <javax-el.version>3.0.1-b11</javax-el.version>
+
+        <!--Lombok-->
+        <lombok.version>1.18.10</lombok.version>
     </properties>
 
     <build>
@@ -171,6 +174,15 @@
             <version>3.13.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <profiles>

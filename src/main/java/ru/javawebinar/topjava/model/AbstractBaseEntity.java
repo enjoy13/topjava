@@ -1,11 +1,18 @@
 package ru.javawebinar.topjava.model;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @MappedSuperclass
 // http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
 @Access(AccessType.FIELD)
+@NoArgsConstructor
+@Getter
+@Setter
 public abstract class AbstractBaseEntity {
     public static final int START_SEQ = 100000;
 
@@ -14,32 +21,29 @@ public abstract class AbstractBaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
 
-    protected AbstractBaseEntity() {
-    }
-
     protected AbstractBaseEntity(Integer id) {
         this.id = id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
+//
+//    public Integer getId() {
+//        return id;
+//    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public boolean isNew() {
+    public final boolean isNew() {
         return this.id == null;
     }
 
     @Override
-    public String toString() {
+    public  String toString() {
         return getClass().getSimpleName() + ":" + id;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -51,7 +55,7 @@ public abstract class AbstractBaseEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return id == null ? 0 : id;
     }
 }
