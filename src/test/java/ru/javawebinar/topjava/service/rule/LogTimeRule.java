@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LogTimeRule implements TestRule {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(LogTimeRule.class);
     private long startTime = 0L;
-    public static Map<String, Long> resultTestMap = new HashMap<>();
+    private static Map<String, Long> resultTestMap = new HashMap<>();
 
     private void beforeMethod() {
         startTime = System.currentTimeMillis();
@@ -24,6 +24,21 @@ public class LogTimeRule implements TestRule {
         String methodName = description.getMethodName();
         resultTestMap.put(methodName, totalTime);
         log.info("Total test time: {} milliseconds, methodName: {}", totalTime, methodName);
+    }
+
+    public static void createTotalTeble() {
+        final StringBuilder text = new StringBuilder();
+        String textFormat = "%n|    %-20s   |   %5d    |";
+        String formatingChars = "+-----------------------------+-----------+";
+        text.append("\n")
+                .append(formatingChars)
+                .append("\n")
+                .append(String.format("|    %-20s   |   %5s    |%n", "Method name ", "Time"))
+                .append(formatingChars);
+        resultTestMap.forEach((k, v) -> text.append(String.format(textFormat, k, v)));
+        text.append("\n")
+                .append(formatingChars);
+        log.info(String.valueOf(text));
     }
 
     @Override

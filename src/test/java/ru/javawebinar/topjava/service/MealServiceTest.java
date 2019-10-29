@@ -40,9 +40,7 @@ public class MealServiceTest {
 
     @AfterClass
     public static void finishReport() {
-        LogTimeRule.resultTestMap.forEach(
-                (k, v) -> log.info("method name: {} - total time execute {} ms", k, v)
-        );
+        LogTimeRule.createTotalTeble();
     }
 
     @Autowired
