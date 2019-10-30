@@ -14,6 +14,13 @@ public class LogTimeRule implements TestRule {
     private long startTime = 0L;
     private static Map<String, Long> resultTestMap = new HashMap<>();
 
+    private LogTimeRule() {
+    }
+
+    public static LogTimeRule newInstance() {
+        return new LogTimeRule();
+    }
+
     private void beforeMethod() {
         startTime = System.currentTimeMillis();
     }
@@ -29,15 +36,15 @@ public class LogTimeRule implements TestRule {
     public static void createTotalTeble() {
         final StringBuilder text = new StringBuilder();
         String textFormat = "%n|    %-20s   |   %5d    |";
-        String formatingChars = "+-----------------------------+-----------+";
+        String formattingChars = "+-----------------------------+-----------+";
         text.append("\n")
-                .append(formatingChars)
+                .append(formattingChars)
                 .append("\n")
                 .append(String.format("|    %-20s   |   %5s    |%n", "Method name ", "Time"))
-                .append(formatingChars);
+                .append(formattingChars);
         resultTestMap.forEach((k, v) -> text.append(String.format(textFormat, k, v)));
         text.append("\n")
-                .append(formatingChars);
+                .append(formattingChars);
         log.info(String.valueOf(text));
     }
 

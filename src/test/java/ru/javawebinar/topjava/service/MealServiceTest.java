@@ -7,8 +7,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.RuleChain;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -32,11 +30,10 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
-    private static final Logger log = LoggerFactory.getLogger(MealServiceTest.class);
     private ExpectedException thrown;
 
     @Rule
-    public TestRule chain = RuleChain.outerRule(new LogTimeRule()).around(thrown = ExpectedException.none());
+    public TestRule chain = RuleChain.outerRule(LogTimeRule.newInstance()).around(thrown = ExpectedException.none());
 
     @AfterClass
     public static void finishReport() {

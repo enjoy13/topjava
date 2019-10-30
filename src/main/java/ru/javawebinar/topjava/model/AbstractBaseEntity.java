@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @MappedSuperclass
-// http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
 @Access(AccessType.FIELD)
 @NoArgsConstructor
 @Getter
@@ -24,14 +23,6 @@ public abstract class AbstractBaseEntity {
     protected AbstractBaseEntity(Integer id) {
         this.id = id;
     }
-
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
-//
-//    public Integer getId() {
-//        return id;
-//    }
 
     public final boolean isNew() {
         return this.id == null;
