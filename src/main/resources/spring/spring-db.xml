@@ -72,6 +72,8 @@
 
         <context:component-scan base-package="ru.javawebinar.**.repository.jdbc"/>
 
+        <bean id="converter" class="ru.javawebinar.topjava.util.ConverterToLocalDateTime"/>
+
         <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
             <constructor-arg ref="dataSource"/>
         </bean>
