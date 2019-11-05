@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -13,10 +15,18 @@ import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 
-public abstract class AbstractMealServiceTest extends ServiceTest{
+public abstract class AbstractMealAbstractServiceTest extends AbstractServiceTest {
 
     @Autowired
     private MealService mealService;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setUp() throws Exception {
+        cacheManager.getCache("meals").clear();
+    }
 
     @Test
     public void delete() throws Exception {
@@ -50,7 +60,7 @@ public abstract class AbstractMealServiceTest extends ServiceTest{
     @Test
     public void get() throws Exception {
         Meal actual = mealService.get(ADMIN_MEAL_ID, ADMIN_ID);
-        assertMatch(actual, ADMIN_MEAL1);
+        assertMatch(actual, ADMIN_MEAL_WITH_USER);
     }
 
     @Test

@@ -1,15 +1,12 @@
 package ru.javawebinar.topjava.service;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -29,18 +26,14 @@ import static org.slf4j.LoggerFactory.getLogger;
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
-public abstract class ServiceTest {
+public abstract class AbstractServiceTest {
     private static final Logger log = getLogger("result");
     private static StringBuilder results = new StringBuilder();
-
-    @Autowired
-    private CacheManager cacheManager;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Rule
-    // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
     public Stopwatch stopwatch = new Stopwatch() {
         @Override
         protected void finished(long nanos, Description description) {
@@ -57,12 +50,5 @@ public abstract class ServiceTest {
                 "\n---------------------------------" +
                 results +
                 "\n---------------------------------");
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        cacheManager.getCache("meals").clear();
-        cacheManager.getCache("users").clear();
-
     }
 }

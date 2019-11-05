@@ -8,14 +8,13 @@ import ru.javawebinar.topjava.repository.MealRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static ru.javawebinar.topjava.util.DateTimeUtil.getEndExclusive;
 import static ru.javawebinar.topjava.util.DateTimeUtil.getStartInclusive;
 
 @Repository
 public class DataJpaMealRepository implements MealRepository {
-    private static final Sort SORT_BY_TIME = Sort.by(Sort.Direction.DESC,  "dateTime");
+    private static final Sort SORT_BY_TIME = Sort.by(Sort.Direction.DESC, "dateTime");
 
     @Autowired
     private CrudMealRepository crudMealRepository;
@@ -45,25 +44,20 @@ public class DataJpaMealRepository implements MealRepository {
 
     @Override
     public Meal get(int id, int userId) {
-        var meal = crudMealRepository.findById(id);
-        if (meal.isPresent()) {
-            if (meal.get().getUser().getId() == userId)
-                return meal.get();
-            else
-                return null;
-        }
-        return null;
+        return crudMealRepository.findByIdAndUserId(id, userId);
     }
 
     @Override
     public List<Meal> getAll(int userId) {
-        return crudMealRepository.findAll(SORT_BY_TIME)
-                .stream().filter(meal -> meal.getUser().getId() == userId)
-                .collect(Collectors.toList());
+        return crudMealRepository.findAllByUserIdOrderByDateTimeDesc(userId);
     }
 
     @Override
     public List<Meal> getBetweenInclusive(LocalDate startDate, LocalDate endDate, int userId) {
         return crudMealRepository.getBetweenInclusive(getStartInclusive(startDate), getEndExclusive(endDate), userId);
+    }
+
+    public Meal getWithUser(int id, int userId) {
+        return crudMealRepository.getMealByIdAndUserId(id, userId);
     }
 }

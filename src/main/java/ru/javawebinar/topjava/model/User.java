@@ -53,6 +53,9 @@ public class User extends AbstractNamedEntity {
     @Range(min = 10, max = 10000)
     private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Meal> meals;
+
     public User() {
     }
 
@@ -72,6 +75,22 @@ public class User extends AbstractNamedEntity {
         this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);
+    }
+
+    public User(Integer id, String name, String email, String password, Collection<Role> roles, List<Meal> meals) {
+        super(id, name);
+        this.email = email;
+        this.password = password;
+        setRoles(roles);
+        setMeals(meals);
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
     }
 
     public String getEmail() {

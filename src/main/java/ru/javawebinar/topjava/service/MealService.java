@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -15,36 +16,37 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class MealService {
 
-    private final MealRepository repository;
-
-    public MealService(MealRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private MealRepository mealRepository;
 
     public Meal get(int id, int userId) {
-        return checkNotFoundWithId(repository.get(id, userId), id);
+        return checkNotFoundWithId(mealRepository.get(id, userId), id);
     }
 
     public void delete(int id, int userId) {
-        checkNotFoundWithId(repository.delete(id, userId), id);
+        checkNotFoundWithId(mealRepository.delete(id, userId), id);
     }
 
     public List<Meal> getBetweenDates(@Nullable LocalDate startDate, @Nullable LocalDate endDate, int userId) {
-        return repository.getBetweenInclusive(startDate, endDate, userId);
+        return mealRepository.getBetweenInclusive(startDate, endDate, userId);
     }
 
     @Cacheable("meals")
     public List<Meal> getAll(int userId) {
-        return repository.getAll(userId);
+        return mealRepository.getAll(userId);
     }
 
     public void update(Meal meal, int userId) {
         Assert.notNull(meal, "meal must not be null");
-        checkNotFoundWithId(repository.save(meal, userId), meal.getId());
+        checkNotFoundWithId(mealRepository.save(meal, userId), meal.getId());
     }
 
     public Meal create(Meal meal, int userId) {
         Assert.notNull(meal, "meal must not be null");
-        return repository.save(meal, userId);
+        return mealRepository.save(meal, userId);
+    }
+
+    public Meal getMealByIdAndUserId(int id, int userId) {
+        return checkNotFoundWithId(mealRepository.getWithUser(id, userId), id);
     }
 }
