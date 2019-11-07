@@ -6,11 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-
-import static ru.javawebinar.topjava.util.DateTimeUtil.getEndExclusive;
-import static ru.javawebinar.topjava.util.DateTimeUtil.getStartInclusive;
 
 @Repository
 public class DataJpaMealRepository implements MealRepository {
@@ -47,7 +44,7 @@ public class DataJpaMealRepository implements MealRepository {
     }
 
     @Override
-    public List<Meal> getBetweenInclusive(LocalDate startDate, LocalDate endDate, int userId) {
-        return crudMealRepository.getBetween(getStartInclusive(startDate), getEndExclusive(endDate), userId);
+    public List<Meal> getBetweenInclusive(LocalDateTime startDate, LocalDateTime endDate, int userId) {
+        return crudMealRepository.getBetween(startDate, endDate, userId);
     }
 }
