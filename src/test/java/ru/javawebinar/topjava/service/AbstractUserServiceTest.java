@@ -1,10 +1,12 @@
 package ru.javawebinar.topjava.service;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
+import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.JpaUtil;
@@ -44,19 +46,22 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         assertMatch(service.get(newId), newUser);
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test
     public void duplicateMailCreate() throws Exception {
+        thrown.expect(DataAccessException.class);
         service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void delete() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.delete(USER_ID);
         service.get(USER_ID);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void deletedNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.delete(1);
     }
 
@@ -66,8 +71,9 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         assertMatch(user, USER);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void getNotFound() throws Exception {
+        thrown.expect(NotFoundException.class);
         service.get(1);
     }
 
@@ -91,6 +97,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     }
 
     @Test
+    @Ignore(Profiles.JDBC)
     public void createWithException() throws Exception {
         validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.ROLE_USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.ROLE_USER)), ConstraintViolationException.class);
