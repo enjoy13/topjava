@@ -55,6 +55,10 @@
 
         <context:component-scan base-package="ru.javawebinar.**.repository.jdbc"/>
 
+        <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource"  ref="dataSource" />
+        </bean>
+
         <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
             <constructor-arg ref="dataSource"/>
         </bean>
@@ -62,9 +66,10 @@
         <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
             <constructor-arg ref="jdbcTemplate"/>
         </bean>
+
     </beans>
 
-    <beans profile="jpa,datajpa,jdbc">
+    <beans profile="jpa,datajpa, jdbc">
 
         <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
               p:dataSource-ref="dataSource"
