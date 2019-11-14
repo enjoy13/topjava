@@ -24,11 +24,11 @@ public class DateTimeUtil {
     }
 
     public static @Nullable LocalDate parseLocalDate(@Nullable String str) {
-        return StringUtils.isEmpty(str) ? null : LocalDate.parse(str);
+        return StringUtils.isEmpty(str) ? LocalDate.now() : LocalDate.parse(str);
     }
 
     public static @Nullable LocalTime parseLocalTime(@Nullable String str) {
-        return StringUtils.isEmpty(str) ? null : LocalTime.parse(str);
+        return StringUtils.isEmpty(str) ? LocalTime.now() : LocalTime.parse(str);
     }
 
     public static LocalDateTime createDateTime(@Nullable LocalDate date, LocalDate defaultDate, LocalTime time) {

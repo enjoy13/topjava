@@ -1,15 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://topjava.javawebinar.ru/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
-<jsp:include page="fragments/headTag.jsp"/>
+<jsp:include page="WEB-INF/jsp/fragments/headTag.jsp"/>
 <head>
     <title><spring:message code="meal.title"/></title>
     <link rel="stylesheet" href="/resources/css/style.css">
 </head>
 <body>
-<jsp:include page="fragments/bodyHeader.jsp"/>
+<jsp:include page="WEB-INF/jsp/fragments/bodyHeader.jsp"/>
 <section>
     <h3><a href="${pageContext.request.contextPath}/"><spring:message code="app.home"/></a></h3>
     <hr>
@@ -32,6 +34,6 @@
         <button onclick="window.history.back()" type="button"><spring:message code="meal.cancel"/></button>
     </form>
 </section>
-<jsp:include page="fragments/footer.jsp"/>
+<jsp:include page="WEB-INF/jsp/fragments/footer.jsp"/>
 </body>
 </html>
