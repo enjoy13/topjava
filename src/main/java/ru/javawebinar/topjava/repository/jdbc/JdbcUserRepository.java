@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -13,6 +14,8 @@ import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 @Repository
@@ -74,17 +77,13 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     public List<User> getAll() {
         List<User> users = jdbcTemplate.query("SELECT * FROM users ORDER BY name, email ", ROW_MAPPER);
-        users.forEach(user -> user.setRoles(getAllRole().get(user.getId())));
-        return users;
-    }
-
-    private Map<Integer, Set<Role>> getAllRole() {
         Map<Integer, Set<Role>> mapRoles = new HashMap<>();
         jdbcTemplate.query("SELECT * FROM user_roles", rs -> {
             mapRoles.computeIfAbsent(rs.getInt("user_id"), r -> EnumSet.noneOf(Role.class))
                     .add(Role.valueOf(rs.getString("role")));
         });
-        return mapRoles;
+        users.forEach(user -> user.setRoles(mapRoles.get(user.getId())));
+        return users;
     }
 
     private User setRole(User user) {
@@ -96,14 +95,14 @@ public class JdbcUserRepository implements UserRepository {
     }
 
     private void deleteRole(User user) {
-        jdbcTemplate.update("delete from user_roles where user_id=?", user.getId());
+        jdbcTemplate.update("DELETE FROM user_roles WHERE user_id=?", user.getId());
     }
 
     private void addRole(User user) {
         Set<Role> roles = user.getRoles();
         if (!roles.isEmpty()) {
             jdbcTemplate.batchUpdate(
-                    "insert into user_roles (user_id, role) values(?,?)", roles, roles.size(),
+                    "INSERT INTO user_roles (user_id, role) VAUES(?,?)", roles, roles.size(),
                     (ps, argument) -> {
                         ps.setInt(1, user.getId());
                         ps.setString(2, argument.name());
