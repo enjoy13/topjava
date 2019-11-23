@@ -22,6 +22,7 @@ import javax.annotation.PostConstruct;
 })
 //@WebAppConfiguration
 //@ExtendWith(SpringExtension.class)
+//@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 @Transactional
 @ActiveProfiles(resolver = AllActiveProfileResolver.class)
 abstract public class AbstractControllerTest {
@@ -54,7 +55,10 @@ abstract public class AbstractControllerTest {
 
     @BeforeEach
     void setUp() {
-        cacheManager.getCache("users").clear();
+//        for(String name : cacheManager.getCacheNames()){
+//            cacheManager.getCache(name).clear();
+//        }
+//        cacheManager.getCache("users").clear();
         if (jpaUtil != null) {
             jpaUtil.clear2ndLevelHibernateCache();
         }
