@@ -8,6 +8,7 @@ import java.time.Month;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
+import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.javawebinar.topjava.TestUtil.readListFromJsonMvcResult;
 import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
@@ -32,7 +33,7 @@ public class MealTestData {
 
     public static final List<MealTo> MEALS_TO_ALL = getTos(MEALS, DEFAULT_CALORIES_PER_DAY);
 
-    public static final List<MealTo> MEALS_TO_TWO = getTos(List.of(MEAL2, MEAL1), DEFAULT_CALORIES_PER_DAY);
+    public static final List<MealTo> MEAL_TO = getTos(singleton(MEAL1), DEFAULT_CALORIES_PER_DAY);
 
     public static Meal getNew() {
         return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
@@ -52,10 +53,6 @@ public class MealTestData {
 
     public static <T> void assertMatch(Iterable<T> actual, Iterable<T> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("user").isEqualTo(expected);
-    }
-
-    public static ResultMatcher contentJson(Iterable<Meal> expected) {
-        return result -> assertMatch(readListFromJsonMvcResult(result, Meal.class), expected);
     }
 
     public static ResultMatcher contentJsonTo(Iterable<MealTo> expected) {
