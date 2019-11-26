@@ -11,6 +11,8 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -44,7 +46,7 @@ class MealRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 // https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
-                .andExpect(MealTestData.contentJson(MEAL1));
+                .andExpect(contentJson(Collections.singleton(MEAL1)));
     }
 
     @Test
@@ -85,8 +87,7 @@ class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getBetween() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_MEALS_URL_FOR_TESTS + "between?startDate=" + MEAL1.getDate() + "&startTime=" + MEAL1.getTime() +
-                "&endDate=" + MEAL2.getDate() + "&endTime=" + MEAL2.getTime()))
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_MEALS_URL_FOR_TESTS + "between?startDate=30-05-2015&startTime=00:00&endDate=30-05-2015&endTime=13:00"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
