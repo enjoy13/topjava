@@ -11,6 +11,7 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static ru.javawebinar.topjava.MealTestData.MEALS_TO_ALL;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 class RootControllerTest extends AbstractControllerTest {
@@ -41,7 +42,7 @@ class RootControllerTest extends AbstractControllerTest {
                 .andExpect(model().attribute("meals", new AssertionMatcher<List<MealTo>>() {
                     @Override
                     public void assertion(List<MealTo> actual) throws AssertionError {
-                        MealTestData.assertMatch(actual, MealTestData.MEALS_TO_ALL);
+                        MealTestData.assertMatch(actual, MEALS_TO_ALL);
                     }
                 }));
     }

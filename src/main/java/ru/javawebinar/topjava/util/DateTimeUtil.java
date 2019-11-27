@@ -11,8 +11,6 @@ import java.time.temporal.ChronoUnit;
 
 public final class DateTimeUtil {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     // HSQLDB doesn't support LocalDate.MIN/MAX
     private static final LocalDateTime MIN_DATE = LocalDate.of(1, 1, 1).atStartOfDay();
