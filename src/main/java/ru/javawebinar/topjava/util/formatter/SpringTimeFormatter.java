@@ -1,14 +1,13 @@
-package ru.javawebinar.topjava.web.formatter;
+package ru.javawebinar.topjava.util.formatter;
 
 import org.springframework.format.Formatter;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class SpringTimeFormatter implements Formatter<LocalTime> {
+import static ru.javawebinar.topjava.util.DateTimeUtil.TIME_FORMATTER;
 
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+public class SpringTimeFormatter implements Formatter<LocalTime> {
 
     @Override
     public LocalTime parse(String text, Locale locale) {

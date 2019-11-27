@@ -56,8 +56,8 @@
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">
             <set>
-                <bean class="ru.javawebinar.topjava.web.formatter.SpringDateFormatter"/>
-                <bean class="ru.javawebinar.topjava.web.formatter.SpringTimeFormatter"/>
+                <bean class="ru.javawebinar.topjava.util.formatter.SpringDateFormatter"/>
+                <bean class="ru.javawebinar.topjava.util.formatter.SpringTimeFormatter"/>
             </set>
         </property>
     </bean>
