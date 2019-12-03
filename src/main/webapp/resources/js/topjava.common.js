@@ -23,10 +23,7 @@ function add() {
 }
 
 function deleteRow(id) {
-    $.ajax({
-        url: context.ajaxUrl + id,
-        type: "DELETE"
-    }).done(function () {
+    $.delete(context.ajaxUrl + id).done(function () {
         updateTable();
         successNoty("Deleted");
     });
