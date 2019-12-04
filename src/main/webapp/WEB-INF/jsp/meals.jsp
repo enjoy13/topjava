@@ -111,12 +111,12 @@
                 </thead>
                 <c:forEach items="${meals}" var="meal">
                     <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.to.MealTo"/>
-                    <tr data-mealExcess="${meal.excess}">
+                    <tr >
                         <td>${fn:formatDateTime(meal.dateTime)}</td>
                         <td>${meal.description}</td>
                         <td>${meal.calories}</td>
-                        <td><a href="meals/update?id=${meal.id}"><span class="fa fa-pencil"></span></a></td>
-                        <td><a href="meals/delete?id=${meal.id}"><span class="fa fa-remove"></span></a></td>
+                        <td><a><span class="fa fa-pencil"></span></a></td>
+                        <td><a onclick="deleteRow(${meal.id})"><span class="fa fa-remove"></span></a></td>
                     </tr>
                 </c:forEach>
             </table>

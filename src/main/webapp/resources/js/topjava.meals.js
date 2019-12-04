@@ -35,7 +35,7 @@ $(function () {
 });
 
 function clearFilter() {
-    $("#filterForm").find(":input").val("");
+    $("#filterForm :input").val("");
 }
 
 function updateFilteredTable() {
