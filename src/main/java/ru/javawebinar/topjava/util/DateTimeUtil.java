@@ -35,6 +35,10 @@ public class DateTimeUtil {
         return StringUtils.isEmpty(str) ? null : LocalDateTime.parse(str);
     }
 
+    public static @Nullable LocalDateTime parseLocalDateTimeWithFormatter(@Nullable String str) {
+        return StringUtils.isEmpty(str) ? null : LocalDateTime.parse(str, DATE_TIME_FORMATTER);
+    }
+
     public static LocalDateTime createDateTime(@Nullable LocalDate date, LocalDate defaultDate, LocalTime time) {
         return LocalDateTime.of(date != null ? date : defaultDate, time);
     }

@@ -14,6 +14,20 @@ function clearFilter() {
 }
 
 $(function () {
+    $("#startDate, #endDate").datetimepicker({
+        timepicker:false,
+        format:'Y-m-d'
+    });
+    $("#startTime, #endTime").datetimepicker({
+        datepicker:false,
+        format:'H:i'
+    });
+   $("#dateTime").datetimepicker({
+       format: 'Y-m-d H:i'
+    });
+});
+
+$(function () {
     makeEditable({
         ajaxUrl: mealAjaxUrl,
         datatableApi: $("#datatable").DataTable({
@@ -27,10 +41,7 @@ $(function () {
                 {
                     "data": "dateTime",
                     "render": function (date, type, row) {
-                        if (type === "display") {
-                            return date.replace('T', ' ');
-                        }
-                        return date;
+                            return date.replace('T', ' ').substring(0,16);;
                     }
                 },
                 {
@@ -57,12 +68,8 @@ $(function () {
                 ]
             ],
             "createdRow": function (row, data, dataIndex) {
-                if (data.excess) {
-                    $(row).attr("data-mealExcess", true);
-                } else {
-                    $(row).attr("data-mealExcess", false);
+                $(row).attr("data-mealExcess", !!data.excess);
                 }
-            }
         }),
         updateTable: function () {
             $.get(mealAjaxUrl, updateFilteredTable);

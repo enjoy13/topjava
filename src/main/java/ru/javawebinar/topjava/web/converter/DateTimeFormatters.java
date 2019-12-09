@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.web.converter;
 
 import org.springframework.format.Formatter;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,12 +42,12 @@ public class DateTimeFormatters {
 
         @Override
         public LocalDateTime parse(String text, Locale locale) {
-            return parseLocalDateTime(text);
+            return parseLocalDateTimeWithFormatter(text);
         }
 
         @Override
         public String print(LocalDateTime ldt, Locale locale) {
-            return ldt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            return DateTimeUtil.toString(ldt);
         }
     }
 }

@@ -27,7 +27,7 @@ public class MealUIController extends AbstractMealController {
 
     @Override
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Meal get(@PathVariable("id") int id) {
+    public Meal get(@PathVariable int id) {
         return super.get(id);
     }
 
