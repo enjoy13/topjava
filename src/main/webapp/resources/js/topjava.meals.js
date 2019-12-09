@@ -15,15 +15,15 @@ function clearFilter() {
 
 $(function () {
     $("#startDate, #endDate").datetimepicker({
-        timepicker:false,
-        format:'Y-m-d'
+        timepicker: false,
+        format: 'Y-m-d'
     });
     $("#startTime, #endTime").datetimepicker({
-        datepicker:false,
-        format:'H:i'
+        datepicker: false,
+        format: 'H:i'
     });
-   $("#dateTime").datetimepicker({
-       format: 'Y-m-d H:i'
+    $("#dateTime").datetimepicker({
+        format: 'Y-m-d H:i'
     });
 });
 
@@ -41,7 +41,7 @@ $(function () {
                 {
                     "data": "dateTime",
                     "render": function (date, type, row) {
-                            return date.replace('T', ' ').substring(0,16);;
+                        return date.replace('T', ' ').substring(0, 16);
                     }
                 },
                 {
@@ -69,7 +69,7 @@ $(function () {
             ],
             "createdRow": function (row, data, dataIndex) {
                 $(row).attr("data-mealExcess", !!data.excess);
-                }
+            }
         }),
         updateTable: function () {
             $.get(mealAjaxUrl, updateFilteredTable);

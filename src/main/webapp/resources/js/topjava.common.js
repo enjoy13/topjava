@@ -22,7 +22,7 @@ function updateRow(id) {
     $.get(context.ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             if (key === "dateTime") {
-                value = value.toString().replace('T', ' ').substring(0,16);
+                value = value.toString().replace('T', ' ').substring(0, 16);
             }
             form.find("input[name='" + key + "']").val(value);
         });
