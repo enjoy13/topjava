@@ -24,6 +24,14 @@
                 <button class="btn btn-success" type="submit">
                     <span class="fa fa-sign-in"></span>
                 </button>
+                <li class="nav-item dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i class="fa fa-language" aria-hidden="true"></i></button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/login?language=en">English</a>
+                        <a class="dropdown-item" href="/login?language=ru">Русский</a>
+                    </div>
+                </li>
             </form:form>
         </sec:authorize>
     </div>

@@ -63,6 +63,7 @@
         </property>
     </bean>
 -->
+
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:cacheSeconds="5"
           p:defaultEncoding="UTF-8">
@@ -70,7 +71,24 @@
         <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 
+    <!-- Locale Change Interceptor to achieve internationalization. -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/login" />
+            <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                <property name="paramName" value="language"/>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- Cookie Resolver -->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+    </bean>
+
+
     <mvc:interceptors>
         <bean class="ru.javawebinar.topjava.web.interceptor.ModelInterceptor"/>
     </mvc:interceptors>
+
 </beans>

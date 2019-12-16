@@ -27,7 +27,10 @@ import static ru.javawebinar.topjava.util.exception.ErrorType.*;
 public class ExceptionInfoHandler {
     private static Logger log = LoggerFactory.getLogger(ExceptionInfoHandler.class);
     public static final String USERS_UNIQUE_EMAIL_IDX = "users_unique_email_idx";
+    public static final String MEALS_UNIQUE_USER_DATETIME_IDX = "meals_unique_user_datetime_idx";
     public static final String USER_WITH_THIS_EMAIL_ALREADY_EXISTS = "User with this email already exists";
+    public static final String MEAL_WITH_THIS_DATETIME_ALREADY_EXISTS = "Meal with this datetime already exists";
+
 
 
     //  http://stackoverflow.com/a/22358422/548473
@@ -59,8 +62,13 @@ public class ExceptionInfoHandler {
     private static ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException, ErrorType errorType) {
         Throwable rootCause = ValidationUtil.getRootCause(e);
         String errorMessage = rootCause.toString();
+
         if (rootCause.getMessage().contains(USERS_UNIQUE_EMAIL_IDX))
-            errorMessage = "User with this email already exists";
+            errorMessage = USER_WITH_THIS_EMAIL_ALREADY_EXISTS;
+
+        if (rootCause.getMessage().contains(MEALS_UNIQUE_USER_DATETIME_IDX))
+            errorMessage = MEAL_WITH_THIS_DATETIME_ALREADY_EXISTS;
+
         if (logException) {
             log.error(errorType + " at request " + req.getRequestURL(), errorMessage);
         } else {
