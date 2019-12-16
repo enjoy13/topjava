@@ -31,4 +31,9 @@ public class TestUtil {
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(new AuthorizedUser(user), null, user.getRoles()));
     }
+
+    public static String getInvalidFieldMax(int i) {
+        return "X".repeat(Math.max(0, i));
+    }
+
 }

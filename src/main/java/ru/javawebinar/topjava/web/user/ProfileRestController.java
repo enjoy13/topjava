@@ -4,12 +4,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.UserTo;
+import ru.javawebinar.topjava.util.ValidationUtil;
 
+import javax.validation.Valid;
 import java.net.URI;
 
+import static ru.javawebinar.topjava.util.ValidationUtil.getUriOfNewResource;
 import static ru.javawebinar.topjava.web.SecurityUtil.authUserId;
 
 @RestController
@@ -29,14 +31,10 @@ public class ProfileRestController extends AbstractUserController {
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public ResponseEntity<User> register(@RequestBody UserTo userTo) {
+    public ResponseEntity<User> register(@Valid @RequestBody UserTo userTo) {
         User created = super.create(userTo);
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{id}")
-                .buildAndExpand(created.getId()).toUri();
-
-        return ResponseEntity.created(uriOfNewResource).body(created);
+        URI uriOfNewResource = getUriOfNewResource(created.getId(), REST_URL + "/{id}");
+        return (ResponseEntity<User>) ValidationUtil.getBody(created, uriOfNewResource);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

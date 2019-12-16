@@ -90,6 +90,41 @@ class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void createWithInvalidCaloriesMin() throws Exception {
+        Meal newMeal = MealTestData.getNewWithInvalidCaloriesMin();
+        perform(doPost().jsonBody(newMeal).basicAuth(USER))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void createWithInvalidCaloriesMax() throws Exception {
+        Meal newMeal = MealTestData.getNewWithInvalidCaloriesMax();
+        perform(doPost().jsonBody(newMeal).basicAuth(USER))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void createWithInvalidDescriptionMax() throws Exception {
+        Meal newMeal = MealTestData.createWithInvalidDescriptionMax();
+        perform(doPost().jsonBody(newMeal).basicAuth(USER))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void createWithInvalidDescriptionMin() throws Exception {
+        Meal newMeal = MealTestData.createWithInvalidDescriptionMin();
+        perform(doPost().jsonBody(newMeal).basicAuth(USER))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void createWithInvalidDate() throws Exception {
+        Meal newMeal = MealTestData.createWithInvalidDate();
+        perform(doPost().jsonBody(newMeal).basicAuth(USER))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
     void getAll() throws Exception {
         perform(doGet().basicAuth(USER))
                 .andExpect(status().isOk())

@@ -29,10 +29,31 @@ public class MealTestData {
         return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
     }
 
+    public static Meal createWithInvalidDate() {
+        return new Meal(null, "Созданный ужин", 300);
+    }
+
+    public static Meal createWithInvalidDescriptionMax() {
+        return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), TestUtil.getInvalidFieldMax(121), 300);
+    }
+
+    public static Meal createWithInvalidDescriptionMin() {
+        return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "1", 300);
+    }
+
+    public static Meal getNewWithInvalidCaloriesMin() {
+        return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 9);
+    }
+
+    public static Meal getNewWithInvalidCaloriesMax() {
+        return new Meal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 5001);
+    }
+
     public static Meal getUpdated() {
         return new Meal(MEAL1_ID, MEAL1.getDateTime(), "Обновленный завтрак", 200);
     }
 
     public static TestMatchers<Meal> MEAL_MATCHERS = TestMatchers.useFieldsComparator(Meal.class, "user");
+
     public static TestMatchers<MealTo> MEAL_TO_MATCHERS = TestMatchers.useEquals(MealTo.class);
 }

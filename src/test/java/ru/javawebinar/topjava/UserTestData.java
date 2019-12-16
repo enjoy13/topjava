@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.model.User;
 import java.util.Collections;
 import java.util.Date;
 
+import static ru.javawebinar.topjava.TestUtil.getInvalidFieldMax;
 import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
 
 public class UserTestData {
@@ -17,6 +18,30 @@ public class UserTestData {
 
     public static User getNew() {
         return new User(null, "New", "new@gmail.com", "newPass", 1555, false, new Date(), Collections.singleton(Role.ROLE_USER));
+    }
+
+    public static User getNewWithInvalidNameMin() {
+        return new User(null, "1", "admin@", "newPass", 1555, false, new Date(), Collections.singleton(Role.ROLE_USER));
+    }
+
+    public static User getNewWithInvalidNameMax() {
+        return new User(null, getInvalidFieldMax(101), "admin@", "newPass", 1555, false, new Date(), Collections.singleton(Role.ROLE_USER));
+    }
+
+    public static User getNewWithInvalidEmailMax() {
+        return new User(null, "NewUser", getInvalidFieldMax(101), "newPass", 1555, false, new Date(), Collections.singleton(Role.ROLE_USER));
+    }
+
+    public static User getNewWithInvalidEmail() {
+        return new User(null, "NewUser", "admin@", "newPass", 1555, false, new Date(), Collections.singleton(Role.ROLE_USER));
+    }
+
+    public static User getNewWithInvalidPasswordMin() {
+        return new User(null, "NewUser", "admin@gmail.com", "1111", 1555, false, new Date(), Collections.singleton(Role.ROLE_USER));
+    }
+
+    public static User getNewWithInvalidPasswordMax() {
+        return new User(null, "NewUser", "admin@gmail.com", getInvalidFieldMax(101), 1555, false, new Date(), Collections.singleton(Role.ROLE_USER));
     }
 
     public static User getUpdated() {

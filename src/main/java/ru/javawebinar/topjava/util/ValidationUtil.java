@@ -2,11 +2,13 @@ package ru.javawebinar.topjava.util;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javawebinar.topjava.HasId;
 import ru.javawebinar.topjava.util.exception.IllegalRequestDataException;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.validation.*;
+import java.net.URI;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -83,5 +85,15 @@ public class ValidationUtil {
                         .map(fe -> String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
                         .collect(Collectors.joining("<br>"))
         );
+    }
+
+    public static URI getUriOfNewResource(int id, String url) {
+        return ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(url)
+                .buildAndExpand(id).toUri();
+    }
+
+    public static <T> ResponseEntity<?> getBody(T created, URI uriOfNewResource) {
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 }

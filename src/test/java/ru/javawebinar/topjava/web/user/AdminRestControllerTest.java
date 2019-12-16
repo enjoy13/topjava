@@ -102,6 +102,48 @@ class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void createWithInvalidEmail() throws Exception {
+        User newUser = UserTestData.getNewWithInvalidEmail();
+        perform(doPost().jsonUserWithPassword(newUser).basicAuth(ADMIN))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void getNewWithInvalidEmailMax() throws Exception {
+        User newUser = UserTestData.getNewWithInvalidEmailMax();
+        perform(doPost().jsonUserWithPassword(newUser).basicAuth(ADMIN))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void createWithInvalidPasswordMin() throws Exception {
+        User newUser = UserTestData.getNewWithInvalidPasswordMin();
+        perform(doPost().jsonUserWithPassword(newUser).basicAuth(ADMIN))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void createWithInvalidPasswordMax() throws Exception {
+        User newUser = UserTestData.getNewWithInvalidPasswordMax();
+        perform(doPost().jsonUserWithPassword(newUser).basicAuth(ADMIN))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void getNewWithInvalidNameMin() throws Exception {
+        User newUser = UserTestData.getNewWithInvalidNameMin();
+        perform(doPost().jsonUserWithPassword(newUser).basicAuth(ADMIN))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
+    void getNewWithInvalidNameMax() throws Exception {
+        User newUser = UserTestData.getNewWithInvalidNameMax();
+        perform(doPost().jsonUserWithPassword(newUser).basicAuth(ADMIN))
+                .andDo(print()).andExpect(status().is(500));
+    }
+
+    @Test
     void getAll() throws Exception {
         perform(doGet().basicAuth(ADMIN))
                 .andExpect(status().isOk())
