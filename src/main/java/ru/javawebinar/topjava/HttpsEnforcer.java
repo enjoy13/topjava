@@ -21,6 +21,7 @@ public class HttpsEnforcer implements Filter {
             if (request.getHeader(X_FORWARDED_PROTO).indexOf("https") != 0) {
                 String pathInfo = (request.getPathInfo() != null) ? request.getPathInfo() : "";
                 response.sendRedirect("https://" + request.getServerName() + pathInfo);
+                return;
             }
         }
         filterChain.doFilter(request, response);
